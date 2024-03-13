@@ -1,11 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IProduct } from "../types";
-interface IQuery {
-  per_page: number;
-  page: number;
-}
-type Void = Partial<IQuery>;
-type ProductsResponse = { data: IProduct[] };
+import { IProduct, ProductsResponse, Void } from "../types";
 
 export const productsApi = createApi({
   reducerPath: "products",

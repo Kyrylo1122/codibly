@@ -1,3 +1,5 @@
+import { store } from "./app/store";
+
 export interface IProduct {
   color: string;
   id: number;
@@ -5,3 +7,17 @@ export interface IProduct {
   pantone_value: string;
   year: number;
 }
+export interface IQueryParams {
+  q: number | string;
+  page: number | string;
+}
+export type RootState = ReturnType<typeof store.getState>;
+
+export type Void = Partial<IQueryParams>;
+
+export type ProductsResponse = {
+  data: IProduct[];
+  per_page: number;
+  page: number;
+  total: number;
+};

@@ -2,16 +2,24 @@ import { Box } from "@mui/material";
 import Search from "./components/Search";
 import { useGetProductsQuery } from "./libs/rtk-query";
 import BasicTable from "./components/Table";
+import { useSelector } from "react-redux";
+import { RootState } from "./types";
 
 function App() {
-  const { data: allProducts } = useGetProductsQuery({ page: 2 });
-  console.log("allProducts: ", allProducts);
-  if (!allProducts) return <></>;
-  const { data: rows } = allProducts;
+  const query = useSelector((state: RootState) => state.search);
+
+  const { data: allProducts } = useGetProductsQuery({ page: query.page });
+  if (!allProducts) return;
+  const { data: rows, per_page, page, total } = allProducts;
   return (
     <Box sx={{ w: "100vw" }}>
       <Search />
-      <BasicTable rows={rows} />
+      <BasicTable
+        rows={rows}
+        rowsPerPage={per_page}
+        page={page}
+        total={total}
+      />
     </Box>
   );
 }

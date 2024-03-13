@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { useSearchParams } from "react-router-dom";
 
 const SearchInput = styled("div")(({ theme }) => ({
   position: "relative",
@@ -49,6 +50,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Search() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const onHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (!value) {
+      setSearchParams();
+    } else setSearchParams({ q: value });
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -72,6 +81,7 @@ export default function Search() {
               type="number"
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onChange={onHandleChange}
             />
           </SearchInput>
         </Toolbar>

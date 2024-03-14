@@ -85,6 +85,7 @@ export default function Search() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              defaultValue={searchParams.get("id")}
               type="number"
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}

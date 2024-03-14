@@ -5,17 +5,30 @@ import BasicTable from "./components/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./types";
 import ProductInfo from "./components/ProductInfo";
-import { changeProductInfoId } from "./features/search/searchSlice";
+import {
+  changeId,
+  changePage,
+  changeProductInfoId,
+} from "./features/search/searchSlice";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
 
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    dispatch(changePage(searchParams.get("page") ?? 1));
+    dispatch(changeId(searchParams.get("id")));
+  }, []);
+
   const query = useSelector((state: RootState) => state.search);
-  const { data: allProducts } = useGetProductsQuery({
-    page: query.page,
-    per_page: query.per_page,
-    id: query.id,
-  });
+  const params = query.id
+    ? { id: query.id }
+    : { page: query.page, per_page: query.per_page };
+
+  const { data: allProducts } = useGetProductsQuery(params);
   const handleModalClose = () => {
     dispatch(changeProductInfoId(null));
   };

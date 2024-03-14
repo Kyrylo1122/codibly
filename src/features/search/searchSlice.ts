@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { IQueryParams } from "../../types";
 const initialState: IQueryParams = {
+  id: null,
   page: 1,
   per_page: "5",
   productInfoId: null,

@@ -6,17 +6,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./types";
 import ProductInfo from "./components/ProductInfo";
 import { changeId } from "./features/search/searchSlice";
+import { useSearchParams } from "react-router-dom";
 
 function App() {
   const dispatch = useDispatch();
 
   const query = useSelector((state: RootState) => state.search);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { data: allProducts } = useGetProductsQuery({
     page: query.page,
     per_page: query.per_page,
   });
   const handleModalClose = () => {
+    searchParams.delete("id");
+    setSearchParams(searchParams);
     dispatch(changeId(null));
   };
   if (!allProducts) return;

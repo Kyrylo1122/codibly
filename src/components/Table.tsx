@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { IProduct } from "../types";
 import { TablePagination } from "@mui/material";
 import { changePage, changeId } from "../features/search/searchSlice";
+import { useSearchParams } from "react-router-dom";
 
 interface IBasicTable {
   rows: IProduct[];
@@ -25,11 +26,15 @@ export default function BasicTable({
   total,
 }: IBasicTable) {
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleChangePage = (_: unknown, page: number) => {
     dispatch(changePage(String(page + 1)));
   };
   const handleChangeId = (id: number | null) => {
+    searchParams.set("id", String(id));
+    setSearchParams(searchParams);
+
     dispatch(changeId(id));
   };
   return (

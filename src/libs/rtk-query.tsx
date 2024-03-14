@@ -10,7 +10,7 @@ export const productsApi = createApi({
         return { url: `/products`, params };
       },
     }),
-    getProductById: builder.query<ProductByIdResponse, number | null>({
+    getProductById: builder.query<ProductByIdResponse, number | string>({
       query: (id: number) => {
         return { url: `/products/${id}` };
       },

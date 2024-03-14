@@ -5,23 +5,19 @@ import BasicTable from "./components/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./types";
 import ProductInfo from "./components/ProductInfo";
-import { changeId } from "./features/search/searchSlice";
-import { useSearchParams } from "react-router-dom";
+import { changeProductInfoId } from "./features/search/searchSlice";
 
 function App() {
   const dispatch = useDispatch();
 
   const query = useSelector((state: RootState) => state.search);
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const { data: allProducts } = useGetProductsQuery({
     page: query.page,
     per_page: query.per_page,
+    id: query.id,
   });
   const handleModalClose = () => {
-    searchParams.delete("id");
-    setSearchParams(searchParams);
-    dispatch(changeId(null));
+    dispatch(changeProductInfoId(null));
   };
   if (!allProducts) return;
   const { data: rows, per_page, page, total } = allProducts;
@@ -34,14 +30,18 @@ function App() {
         page={page}
         total={total}
       />
-      <Modal
-        open={Boolean(query.id)}
-        onClose={handleModalClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <ProductInfo />
-      </Modal>
+      {query.productInfoId ? (
+        <Modal
+          open={Boolean(query.productInfoId)}
+          onClose={handleModalClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <>
+            <ProductInfo id={query.productInfoId} />
+          </>
+        </Modal>
+      ) : null}
     </Box>
   );
 }

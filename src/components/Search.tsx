@@ -6,6 +6,8 @@ import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { changeId } from "../features/search/searchSlice";
 
 const SearchInput = styled("div")(({ theme }) => ({
   position: "relative",
@@ -50,13 +52,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Search() {
+  const dispatch = useDispatch();
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    if (!value) {
-      setSearchParams();
-    } else setSearchParams({ q: value });
+    const id = e.target.value;
+
+    if (!id) searchParams.delete("id");
+    else searchParams.set("id", id);
+    setSearchParams(searchParams);
+
+    dispatch(changeId(id));
   };
   return (
     <Box sx={{ flexGrow: 1 }}>

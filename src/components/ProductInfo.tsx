@@ -1,7 +1,5 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../types";
 import { useGetProductByIdQuery } from "../libs/rtk-query";
-import { Paper, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -17,16 +15,13 @@ const style = {
   pb: 3,
 };
 
-const ProductInfo = () => {
-  const state = useSelector((state: RootState) => state.search);
-  const { data } = useGetProductByIdQuery(state.id, {
-    skip: !state.id,
-  });
-
+const ProductInfo = ({ id }: { id: string }) => {
+  const { data, isLoading } = useGetProductByIdQuery(id);
+  if (isLoading) return <Typography>Loading...</Typography>;
   if (!data) return;
   const { data: product } = data;
   return (
-    <Paper sx={{ ...style, bgcolor: product.color, minHeight: "300px" }}>
+    <Box sx={{ ...style, bgcolor: product.color, minHeight: "300px" }}>
       <Typography variant="h2">Product Info</Typography>
       <Typography variant="body1">Id:{product.id} </Typography>
       <Typography variant="body1">
@@ -35,7 +30,7 @@ const ProductInfo = () => {
       <Typography variant="body1">Color:{product.color} </Typography>
       <Typography variant="body1">Name:{product.name} </Typography>
       <Typography variant="body1">Year:{product.year} </Typography>
-    </Paper>
+    </Box>
   );
 };
 

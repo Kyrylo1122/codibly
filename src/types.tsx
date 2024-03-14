@@ -8,8 +8,8 @@ export interface IProduct {
   year: number;
 }
 export interface IQueryParams {
-  id: null | number;
-  q: number | string;
+  productInfoId: null | string;
+  id?: null | string;
   page: number | string;
   per_page: string;
 }

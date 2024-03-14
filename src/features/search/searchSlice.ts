@@ -4,8 +4,7 @@ import { IQueryParams } from "../../types";
 const initialState: IQueryParams = {
   page: 1,
   per_page: "5",
-  q: "",
-  id: 1,
+  productInfoId: null,
 };
 
 export const searchSlice = createSlice({
@@ -15,15 +14,17 @@ export const searchSlice = createSlice({
     changePage: (state, action: PayloadAction<number | string>) => {
       state.page = action.payload;
     },
-    changeSearchParams: (state, action: PayloadAction<string>) => {
-      state.q = action.payload;
-    },
-    changeId: (state, action: PayloadAction<number | null>) => {
+
+    changeId: (state, action: PayloadAction<string | null>) => {
       state.id = action.payload;
+    },
+    changeProductInfoId: (state, action: PayloadAction<string | null>) => {
+      state.productInfoId = action.payload;
     },
   },
 });
 
-export const { changePage, changeSearchParams, changeId } = searchSlice.actions;
+export const { changePage, changeId, changeProductInfoId } =
+  searchSlice.actions;
 
 export default searchSlice.reducer;

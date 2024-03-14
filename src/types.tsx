@@ -8,8 +8,10 @@ export interface IProduct {
   year: number;
 }
 export interface IQueryParams {
+  id: null | number;
   q: number | string;
   page: number | string;
+  per_page: string;
 }
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -20,4 +22,7 @@ export type ProductsResponse = {
   per_page: number;
   page: number;
   total: number;
+};
+export type ProductByIdResponse = {
+  data: IProduct;
 };

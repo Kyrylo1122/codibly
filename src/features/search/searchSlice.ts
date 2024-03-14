@@ -3,7 +3,9 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { IQueryParams } from "../../types";
 const initialState: IQueryParams = {
   page: 1,
+  per_page: "5",
   q: "",
+  id: 1,
 };
 
 export const searchSlice = createSlice({
@@ -16,9 +18,12 @@ export const searchSlice = createSlice({
     changeSearchParams: (state, action: PayloadAction<string>) => {
       state.q = action.payload;
     },
+    changeId: (state, action: PayloadAction<number | null>) => {
+      state.id = action.payload;
+    },
   },
 });
 
-export const { changePage, changeSearchParams } = searchSlice.actions;
+export const { changePage, changeSearchParams, changeId } = searchSlice.actions;
 
 export default searchSlice.reducer;

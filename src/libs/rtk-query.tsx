@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IProduct, ProductsResponse, Void } from "../types";
+import { ProductByIdResponse, ProductsResponse, Void } from "../types";
 
 export const productsApi = createApi({
   reducerPath: "products",
@@ -10,12 +10,12 @@ export const productsApi = createApi({
         return { url: `/products`, params };
       },
     }),
-    getProductById: builder.query<IProduct, string>({
-      query: (id: string) => {
-        return { url: `/${id}` };
+    getProductById: builder.query<ProductByIdResponse, number | null>({
+      query: (id: number) => {
+        return { url: `/products/${id}` };
       },
     }),
   }),
 });
 
-export const { useGetProductsQuery } = productsApi;
+export const { useGetProductsQuery, useGetProductByIdQuery } = productsApi;

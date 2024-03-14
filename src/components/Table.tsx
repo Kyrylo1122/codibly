@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 
 import { IProduct } from "../types";
 import { TablePagination } from "@mui/material";
-import { changePage } from "../features/search/searchSlice";
+import { changePage, changeId } from "../features/search/searchSlice";
 
 interface IBasicTable {
   rows: IProduct[];
@@ -29,35 +29,36 @@ export default function BasicTable({
   const handleChangePage = (_: unknown, page: number) => {
     dispatch(changePage(String(page + 1)));
   };
+  const handleChangeId = (id: number | null) => {
+    dispatch(changeId(id));
+  };
   return (
     <Paper sx={{ width: "100%" }}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">Id</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Color</TableCell>
-              <TableCell align="right">Pantone value</TableCell>
-              <TableCell align="right">Year</TableCell>
+              <TableCell align="center">Id</TableCell>
+              <TableCell align="center">Name</TableCell>
+              <TableCell align="center">Year</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
               <TableRow
-                key={row.name}
+                onClick={() => handleChangeId(row.id)}
+                key={row.id}
                 sx={{
                   bgcolor: row.color,
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
               >
-                <TableCell component="th" scope="row" align="right">
+                <TableCell component="th" scope="row" align="center">
                   {row.id}
                 </TableCell>
-                <TableCell align="right">{row.name}</TableCell>
-                <TableCell align="right">{row.color}</TableCell>
-                <TableCell align="right">{row.pantone_value}</TableCell>
-                <TableCell align="right">{row.year}</TableCell>
+                <TableCell align="center">{row.name}</TableCell>
+
+                <TableCell align="center">{row.year}</TableCell>
               </TableRow>
             ))}
           </TableBody>

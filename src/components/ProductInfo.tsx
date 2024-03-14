@@ -1,5 +1,6 @@
 import { useGetProductByIdQuery } from "../libs/rtk-query";
 import { Box, Typography } from "@mui/material";
+import ErrorPage from "./ErrorPage";
 
 const style = {
   position: "absolute",
@@ -16,8 +17,9 @@ const style = {
 };
 
 const ProductInfo = ({ id }: { id: string }) => {
-  const { data, isLoading } = useGetProductByIdQuery(id);
-  if (isLoading) return <Typography>Loading...</Typography>;
+  const { data, error, isLoading } = useGetProductByIdQuery(id);
+  if (isLoading) return <>Loading...</>;
+  if (error) return <ErrorPage error={error} />;
   if (!data) return;
   const { data: product } = data;
   return (

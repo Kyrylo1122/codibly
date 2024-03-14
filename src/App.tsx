@@ -12,6 +12,7 @@ import {
 } from "./features/search/searchSlice";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,10 +29,13 @@ function App() {
     ? { id: query.id }
     : { page: query.page, per_page: query.per_page };
 
-  const { data: allProducts } = useGetProductsQuery(params);
+  const { data: allProducts, error, isLoading } = useGetProductsQuery(params);
   const handleModalClose = () => {
     dispatch(changeProductInfoId(null));
   };
+  if (isLoading) return <>Loading...</>;
+  if (error) return <ErrorPage error={error} />;
+
   if (!allProducts) return;
   const { data: rows, per_page, page, total } = allProducts;
   return (

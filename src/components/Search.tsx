@@ -8,6 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeId } from "../features/search/searchSlice";
+import { useDebouncedCallback } from "use-debounce";
 
 const SearchInput = styled("div")(({ theme }) => ({
   position: "relative",
@@ -56,7 +57,9 @@ export default function Search() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const onHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onHandleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const id = e.target.value;
 
     if (!id) searchParams.delete("id");
@@ -65,6 +68,7 @@ export default function Search() {
 
     dispatch(changeId(id));
   };
+  const debouncedHandleChange = useDebouncedCallback(onHandleChange, 1000);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -89,7 +93,7 @@ export default function Search() {
               type="number"
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              onChange={onHandleChange}
+              onChange={debouncedHandleChange}
             />
           </SearchInput>
         </Toolbar>

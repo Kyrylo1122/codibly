@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IQueryParams } from "../../types";
+import { IQueryParams } from "src/types";
 const initialState: IQueryParams = {
   id: null,
   page: 1,

@@ -8,9 +8,9 @@ import TableRowMUI from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch } from "react-redux";
 
-import { IProduct } from "../types";
+import { IProduct } from "src/types";
 import { TablePagination } from "@mui/material";
-import { changePage } from "../features/search/searchSlice";
+import { changePage } from "src/features/search/searchSlice";
 import TableRow from "./TableRow";
 import { useSearchParams } from "react-router-dom";
 

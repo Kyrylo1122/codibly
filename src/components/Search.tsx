@@ -61,14 +61,13 @@ export default function Search() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const id = e.target.value;
-
     if (!id) searchParams.delete("id");
     else searchParams.set("id", id);
     setSearchParams(searchParams);
 
     dispatch(changeId(id));
   };
-  const debouncedHandleChange = useDebouncedCallback(onHandleChange, 1000);
+  const debouncedHandleChange = useDebouncedCallback(onHandleChange, 500);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar

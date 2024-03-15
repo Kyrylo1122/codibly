@@ -10,8 +10,8 @@ export interface IProduct {
 export interface IQueryParams {
   productInfoId: null | string;
   id?: null | string;
-  page: number | string;
-  per_page: string;
+  page: number;
+  per_page: number;
 }
 export type RootState = ReturnType<typeof store.getState>;
 

@@ -32,9 +32,9 @@ export default function BasicTable({
   const isArray = Array.isArray(rows);
 
   const handleChangePage = (_: unknown, page: number) => {
-    const currentPage = String(page + 1);
+    const currentPage = page + 1;
 
-    if (page > 0) searchParams.set("page", currentPage);
+    if (page > 0) searchParams.set("page", currentPage.toString());
     else searchParams.delete("page");
     setSearchParams(searchParams);
     dispatch(changePage(currentPage));

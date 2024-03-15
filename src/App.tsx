@@ -20,7 +20,7 @@ function App() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    dispatch(changePage(searchParams.get("page") ?? 1));
+    dispatch(changePage(Number(searchParams.get("page")) || 1));
     dispatch(changeId(searchParams.get("id")));
   }, []);
 

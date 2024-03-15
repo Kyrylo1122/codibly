@@ -1,5 +1,5 @@
 import { useGetProductByIdQuery } from "src/libs/rtk-query";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import ErrorPage from "./ErrorPage";
 
 const style = {
@@ -32,6 +32,7 @@ const ProductInfo = ({ id }: { id: string }) => {
       <Typography variant="body1">Color:{product.color} </Typography>
       <Typography variant="body1">Name:{product.name} </Typography>
       <Typography variant="body1">Year:{product.year} </Typography>
+      <Button>But</Button>
     </Box>
   );
 };

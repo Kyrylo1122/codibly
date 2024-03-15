@@ -1,9 +1,9 @@
 import { TableCell } from "@mui/material";
 import TableRowMUI from "@mui/material/TableRow";
 
-import { IProduct } from "../types";
+import { IProduct } from "src/types";
 import { useDispatch } from "react-redux";
-import { changeProductInfoId } from "../features/search/searchSlice";
+import { changeProductInfoId } from "src/features/search/searchSlice";
 
 const TableRow = ({ id, color, name, year }: IProduct) => {
   const dispatch = useDispatch();

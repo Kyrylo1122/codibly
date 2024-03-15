@@ -1,10 +1,10 @@
 import { Box, Modal } from "@mui/material";
-import Search from "./components/Search";
-import { useGetProductsQuery } from "./libs/rtk-query";
+import Search from "src/components/Search";
+import { useGetProductsQuery } from "src/libs/rtk-query";
 import BasicTable from "./components/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "./types";
-import ProductInfo from "./components/ProductInfo";
+import { RootState } from "src/types";
+import ProductInfo from "src/components/ProductInfo";
 import {
   changeId,
   changePage,

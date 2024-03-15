@@ -7,7 +7,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { changeId } from "../features/search/searchSlice";
+import { changeId } from "src/features/search/searchSlice";
 import { useDebouncedCallback } from "use-debounce";
 
 const SearchInput = styled("div")(({ theme }) => ({

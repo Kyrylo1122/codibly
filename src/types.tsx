@@ -1,4 +1,4 @@
-import { store } from "./app/store";
+import { store } from "src/app/store";
 
 export interface IProduct {
   color: string;

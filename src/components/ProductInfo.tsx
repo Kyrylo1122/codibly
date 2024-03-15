@@ -1,4 +1,4 @@
-import { useGetProductByIdQuery } from "../libs/rtk-query";
+import { useGetProductByIdQuery } from "src/libs/rtk-query";
 import { Box, Typography } from "@mui/material";
 import ErrorPage from "./ErrorPage";
 

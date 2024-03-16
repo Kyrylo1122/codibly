@@ -1,5 +1,5 @@
 import { useGetProductByIdQuery } from "src/libs/rtk-query";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ErrorPage from "./ErrorPage";
 
 const style = {

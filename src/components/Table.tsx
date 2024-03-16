@@ -6,13 +6,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRowMUI from "@mui/material/TableRow";
 
 import Paper from "@mui/material/Paper";
-import { useDispatch } from "react-redux";
 
 import { IProduct } from "src/types";
 import { TablePagination } from "@mui/material";
-import { changePage } from "src/features/search/searchSlice";
+import {
+  changePage,
+  changeProductInfoId,
+} from "src/features/search/searchSlice";
 import TableRow from "./TableRow";
 import { useSearchParams } from "react-router-dom";
+import { useAppDispatch } from "src/app/hooks/reduxHooks";
 
 interface IBasicTable {
   rows: IProduct | IProduct[];
@@ -27,7 +30,7 @@ export default function BasicTable({
   page,
   total,
 }: IBasicTable) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const isArray = Array.isArray(rows);
 
@@ -38,6 +41,9 @@ export default function BasicTable({
     else searchParams.delete("page");
     setSearchParams(searchParams);
     dispatch(changePage(currentPage));
+  };
+  const handleChangeId = (id: number | null) => {
+    dispatch(changeProductInfoId(String(id)));
   };
 
   return (
@@ -53,9 +59,15 @@ export default function BasicTable({
           </TableHead>
           <TableBody>
             {isArray ? (
-              rows.map((row) => <TableRow key={row.id} {...row} />)
+              rows.map((row) => (
+                <TableRow
+                  handleClick={() => handleChangeId(row.id)}
+                  key={row.id}
+                  {...row}
+                />
+              ))
             ) : (
-              <TableRow {...rows} />
+              <TableRow handleClick={() => handleChangeId(rows.id)} {...rows} />
             )}
           </TableBody>
         </Table>

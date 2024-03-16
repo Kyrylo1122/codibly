@@ -32,7 +32,6 @@ const ProductInfo = ({ id }: { id: string }) => {
       <Typography variant="body1">Color:{product.color} </Typography>
       <Typography variant="body1">Name:{product.name} </Typography>
       <Typography variant="body1">Year:{product.year} </Typography>
-      <Button>But</Button>
     </Box>
   );
 };

@@ -47,7 +47,6 @@ function App() {
         page={page}
         total={total}
       />
-      <ProductInfo id="1" />
       {query.productInfoId ? (
         <Modal
           open={Boolean(query.productInfoId)}

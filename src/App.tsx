@@ -1,18 +1,18 @@
 import { Box, Modal } from "@mui/material";
 import Search from "src/components/Search";
 import { useGetProductsQuery } from "src/libs/rtk-query";
-import BasicTable from "./components/Table";
+import BasicTable from "src/components/Table";
 import { RootState } from "src/types";
 import ProductInfo from "src/components/ProductInfo";
 import {
   changeId,
   changePage,
   changeProductInfoId,
-} from "./features/search/searchSlice";
+} from "src/features/search/searchSlice";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import ErrorPage from "./components/ErrorPage";
-import { useAppDispatch, useAppSelector } from "./app/hooks/reduxHooks";
+import ErrorPage from "src/components/ErrorPage";
+import { useAppDispatch, useAppSelector } from "src/app/hooks/reduxHooks";
 
 function App() {
   const dispatch = useAppDispatch();

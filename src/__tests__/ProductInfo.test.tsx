@@ -3,25 +3,13 @@ import { render, renderHook, screen, waitFor } from "@testing-library/react";
 
 import ProductInfo from "src/components/ProductInfo";
 import { useGetProductByIdQuery } from "src/libs/rtk-query";
-import { Provider } from "react-redux";
-import { store } from "src/app/store";
-import { ReactNode } from "react";
-import { BrowserRouter } from "react-router-dom";
+
 import { mockedProductIdOne } from "src/test/mocks/handlers";
-import { renderWithProviders } from "src/utils/test-utils";
-
-function Wrapper(props: { children: ReactNode }) {
-  return (
-    <Provider store={store}>
-      <BrowserRouter>{props.children}</BrowserRouter>
-    </Provider>
-  );
-}
-
+import wrapper from "src/utils/test-utils";
 describe("ProductInfo", () => {
   test("renders hook", async () => {
     const { result } = renderHook(() => useGetProductByIdQuery("1"), {
-      wrapper: Wrapper,
+      wrapper,
     });
     expect(result.current).toMatchObject({
       status: "pending",
@@ -40,7 +28,7 @@ describe("ProductInfo", () => {
   });
   test("render component ProductInfo", async () => {
     const id = "1";
-    render(<ProductInfo id={id} />, { wrapper: Wrapper });
+    render(<ProductInfo id={id} />, { wrapper });
     await waitFor(() => {
       expect(screen.getByText("Product Info")).toBeInTheDocument();
       expect(
@@ -60,7 +48,7 @@ describe("ProductInfo", () => {
   });
   test("Error render in component ProductInfo", async () => {
     const id = "13";
-    renderWithProviders(<ProductInfo id={id} />);
+    render(<ProductInfo id={id} />, { wrapper });
     await waitFor(() => {
       expect(screen.getByText("Return")).toBeInTheDocument();
       expect(screen.getByText("An error has occurred:")).toBeInTheDocument();

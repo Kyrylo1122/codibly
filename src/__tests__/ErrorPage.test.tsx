@@ -1,15 +1,16 @@
-import { screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 
 import ErrorPage from "src/components/ErrorPage";
-import { renderWithProviders } from "src/utils/test-utils";
 import { describe, expect, test } from "vitest";
+import wrapper from "src/utils/test-utils";
 
 describe("Error page", () => {
-  test("Check render test", async () => {
+  test("Error render", async () => {
     const error = { status: 404, data: {} };
-    renderWithProviders(<ErrorPage error={error} />);
+    render(<ErrorPage error={error} />, { wrapper });
+
     await waitFor(() => {
-      expect(screen.getByText("Return")).toBeInTheDocument();
+      expect(screen.getByText(/return/i)).toBeInTheDocument();
       expect(screen.getByText("An error has occurred:")).toBeInTheDocument();
     });
   });

@@ -19,7 +19,6 @@ export default function ErrorPage({
   };
 
   if ("status" in error) {
-    // you can access all properties of `FetchBaseQueryError` here
     const errMsg = `STATUS: ${error.status} ${
       "error" in error ? error.error : JSON.stringify(error.data)
     }`;

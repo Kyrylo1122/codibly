@@ -9,7 +9,10 @@ import Paper from "@mui/material/Paper";
 
 import { IProduct } from "src/types";
 import { TablePagination } from "@mui/material";
-import { changePage } from "src/features/search/searchSlice";
+import {
+  changePage,
+  changeProductInfoId,
+} from "src/features/search/searchSlice";
 import TableRow from "./TableRow";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "src/app/hooks/reduxHooks";
@@ -39,6 +42,9 @@ export default function BasicTable({
     setSearchParams(searchParams);
     dispatch(changePage(currentPage));
   };
+  const handleChangeId = (id: number | null) => {
+    dispatch(changeProductInfoId(String(id)));
+  };
 
   return (
     <Paper sx={{ width: "100%" }}>
@@ -53,9 +59,15 @@ export default function BasicTable({
           </TableHead>
           <TableBody>
             {isArray ? (
-              rows.map((row) => <TableRow key={row.id} {...row} />)
+              rows.map((row) => (
+                <TableRow
+                  handleClick={() => handleChangeId(row.id)}
+                  key={row.id}
+                  {...row}
+                />
+              ))
             ) : (
-              <TableRow {...rows} />
+              <TableRow handleClick={() => handleChangeId(rows.id)} {...rows} />
             )}
           </TableBody>
         </Table>

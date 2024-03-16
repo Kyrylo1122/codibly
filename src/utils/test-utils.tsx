@@ -1,37 +1,33 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import { RenderOptions, render as rtlRender } from "@testing-library/react";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
-
-import searchReducer from "src/features/search/searchSlice";
+import { store } from "src/app/store";
 import { ReactNode } from "react";
-import { RootState, store } from "src/app/store";
-
-interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
-  preloadedState?: Partial<RootState>;
-  store?: typeof store;
+import { BrowserRouter } from "react-router-dom";
+import { within } from "@testing-library/react";
+import { expect } from "vitest";
+export default function wrapper(props: { children: ReactNode }) {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>{props.children}</BrowserRouter>
+    </Provider>
+  );
 }
 
-export const renderWithProviders = (
-  ui: ReactNode,
-  extendedRenderOptions: ExtendedRenderOptions = {}
-) => {
-  const {
-    preloadedState = {},
-    store = configureStore({
-      reducer: combineReducers({ search: searchReducer }),
-      preloadedState,
-    }),
-    ...renderOptions
-  } = extendedRenderOptions;
-  const Wrapper = ({ children }: { children: ReactNode }) => {
-    return (
-      <Provider store={store}>
-        <Router>{children}</Router>
-      </Provider>
-    );
-  };
-  return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
+export const checkRowContents = ({
+  row,
+  id,
+  name,
+  year,
+  role,
+}: {
+  row: HTMLElement;
+  id: number | string;
+  name: string;
+  year: number | string;
+  role: string;
+}) => {
+  const columns = within(row).getAllByRole(role);
+  expect(columns).toHaveLength(3);
+  expect(columns[0]).toHaveTextContent(id.toString());
+  expect(columns[1]).toHaveTextContent(name);
+  expect(columns[2]).toHaveTextContent(year.toString());
 };
-
-export * from "@testing-library/react";

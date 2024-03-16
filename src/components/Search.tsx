@@ -6,9 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { changeId } from "src/features/search/searchSlice";
 import { useDebouncedCallback } from "use-debounce";
+import { useAppDispatch } from "src/app/hooks/reduxHooks";
 
 const SearchInput = styled("div")(({ theme }) => ({
   position: "relative",
@@ -53,7 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Search() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
 

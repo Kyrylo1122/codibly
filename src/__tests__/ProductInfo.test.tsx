@@ -8,6 +8,7 @@ import { store } from "src/app/store";
 import { ReactNode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { mockedProductIdOne } from "src/test/mocks/handlers";
+import { renderWithProviders } from "src/utils/test-utils";
 
 function Wrapper(props: { children: ReactNode }) {
   return (
@@ -59,7 +60,7 @@ describe("ProductInfo", () => {
   });
   test("Error render in component ProductInfo", async () => {
     const id = "13";
-    render(<ProductInfo id={id} />, { wrapper: Wrapper });
+    renderWithProviders(<ProductInfo id={id} />);
     await waitFor(() => {
       expect(screen.getByText("Return")).toBeInTheDocument();
       expect(screen.getByText("An error has occurred:")).toBeInTheDocument();

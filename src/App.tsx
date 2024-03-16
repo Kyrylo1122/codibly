@@ -2,7 +2,6 @@ import { Box, Modal } from "@mui/material";
 import Search from "src/components/Search";
 import { useGetProductsQuery } from "src/libs/rtk-query";
 import BasicTable from "./components/Table";
-import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/types";
 import ProductInfo from "src/components/ProductInfo";
 import {
@@ -13,9 +12,10 @@ import {
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
+import { useAppDispatch, useAppSelector } from "./app/hooks/reduxHooks";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [searchParams] = useSearchParams();
 
@@ -24,7 +24,7 @@ function App() {
     dispatch(changeId(searchParams.get("id")));
   }, []);
 
-  const query = useSelector((state: RootState) => state.search);
+  const query = useAppSelector((state: RootState) => state.search);
   const params = query.id
     ? { id: query.id }
     : { page: query.page, per_page: query.per_page };

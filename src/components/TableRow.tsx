@@ -2,11 +2,11 @@ import { TableCell } from "@mui/material";
 import TableRowMUI from "@mui/material/TableRow";
 
 import { IProduct } from "src/types";
-import { useDispatch } from "react-redux";
 import { changeProductInfoId } from "src/features/search/searchSlice";
+import { useAppDispatch } from "src/app/hooks/reduxHooks";
 
 const TableRow = ({ id, color, name, year }: IProduct) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleChangeId = (id: number | null) => {
     dispatch(changeProductInfoId(String(id)));
   };

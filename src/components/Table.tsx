@@ -6,13 +6,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRowMUI from "@mui/material/TableRow";
 
 import Paper from "@mui/material/Paper";
-import { useDispatch } from "react-redux";
 
 import { IProduct } from "src/types";
 import { TablePagination } from "@mui/material";
 import { changePage } from "src/features/search/searchSlice";
 import TableRow from "./TableRow";
 import { useSearchParams } from "react-router-dom";
+import { useAppDispatch } from "src/app/hooks/reduxHooks";
 
 interface IBasicTable {
   rows: IProduct | IProduct[];
@@ -27,7 +27,7 @@ export default function BasicTable({
   page,
   total,
 }: IBasicTable) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const isArray = Array.isArray(rows);
 
